@@ -114,17 +114,20 @@
     pictureLikes.textContent = photo.likes;
     pictureComentsCount.textContent = photo.comments.length;
 
+    while (pictureComentsList.firstChild) {
+      pictureComentsList.removeChild(pictureComentsList.firstChild);
+    }
     for (var i = 0; i < photo.comments.length; i++) {
       var commentText = photo.comments[i];
       var avatarUrl = 'img/avatar-' + (1 + getRandomInt(5)) + '.svg';
       pictureComentsList.appendChild(renderComent(commentText, avatarUrl));
     }
 
-    bigPictureElement.classList.remove('hidden');
-
-
     socialCommentCount.classList.add('visually-hidden');
     socialCommentLoad.classList.add('visually-hidden');
+
+    bigPictureElement.classList.remove('hidden');
+
   };
 
   var randomPhotosSet = makeRandomPhotosSet(PHOTOS_NUMBER);
