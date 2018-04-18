@@ -84,6 +84,10 @@
     pictureImage.src = photo.url;
     pictureLikes.textContent = photo.likes;
     pictureComents.textContent = photo.comments.length;
+    pictureElement.addEventListener('click', function (evt) {
+      evt.preventDefault();
+      showBigPictureElemnt(photo);
+    });
     return pictureElement;
   };
 
@@ -94,13 +98,6 @@
 
     for (var i = 0; i < data.length; i++) {
       var pictureElement = renderPictureElement(data[i], photoTemplate);
-      pictureElement.addEventListener('click', (function (photo) {
-        return function (evt) {
-          evt.preventDefault();
-          showBigPictureElemnt(photo);
-        };
-      })(data[i]));
-
       fragment.appendChild(pictureElement);
     }
     return fragment;
