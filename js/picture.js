@@ -44,18 +44,10 @@
       ];
   };
 
-  var getPhotoByID = function (photoSet, id) {
-    var result = photoSet.filter(function (item) {
-      return item.id === id;
-    });
-    return result[0] ? result[0] : null;
-  };
-
   var makeRandomPhotosSet = function (num) {
     var photosList = [];
     for (var i = 1; i <= num; i++) {
       var photo = {
-        id: i,
         url: PHOTOS_PATH + i + PHOTOS_EXT,
         likes: LIKES_MIN + getRandomInt(LIKES_MAX - LIKES_MIN + 1),
         comments: getRandomComments(),
@@ -99,9 +91,16 @@
     var fragment = document.createDocumentFragment();
     var photoTemplate = document.querySelector('#picture')
         .content.querySelector('.picture__link');
+
     for (var i = 0; i < data.length; i++) {
       var pictureElement = renderPictureElement(data[i], photoTemplate);
-      pictureElement.addEventListener('click', onPictureElementClick);
+      pictureElement.addEventListener('click', (function (photo) {
+        return function (evt) {
+          evt.preventDefault();
+          showBigPictureElemnt(photo);
+        };
+      })(data[i]));
+
       fragment.appendChild(pictureElement);
     }
     return fragment;
@@ -158,12 +157,6 @@
     if (evt.keyCode === ESC_KEYCODE) {
       hideBigPictureElemnt();
     }
-  };
-
-  var onPictureElementClick = function (evt) {
-    evt.preventDefault();
-    var pictureId = parseInt(evt.currentTarget.dataset.id, 10);
-    showBigPictureElemnt(getPhotoByID(randomPhotosSet, pictureId));
   };
 
   var randomPhotosSet = makeRandomPhotosSet(PHOTOS_NUMBER);
