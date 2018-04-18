@@ -178,6 +178,7 @@
   var imagePreviewElement = document.querySelector('.img-upload__preview');
 
   var effectControls = document.querySelectorAll('.effects__radio');
+  var scaleElement = document.querySelector('.img-upload__scale');
   var scalePinControl = document.querySelector('.scale__pin');
   var scaleValueElement = document.querySelector('.scale__value');
   var imagePreviewImage = document.querySelector('.img-upload__preview img');
@@ -241,6 +242,11 @@
     var currentEffect = document.querySelector('.effects__radio:checked').value;
     imagePreviewImage.className = effectsMap[currentEffect].className;
     imagePreviewImage.style.filter = effectsMap[currentEffect].calcFilterValue(scaleValueElement.value);
+    if (currentEffect === 'none') {
+      scaleElement.classList.add('hidden');
+    } else if (scaleElement.classList.contains('hidden')) {
+      scaleElement.classList.remove('hidden');
+    }
   };
 
   var decreaseResizeControlValue = function () {
