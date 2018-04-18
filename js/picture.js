@@ -284,7 +284,9 @@
   };
 
   var onDocumentEscKeydown = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
+    if (evt.keyCode === ESC_KEYCODE &&
+      evt.target !== document.querySelector('.text__hashtags') &&
+      evt.target !== document.querySelector('.text__description')) {
       hideImageUploadElement();
     }
   };
