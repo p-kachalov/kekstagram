@@ -227,6 +227,7 @@
 
     resizeControlsPanel.style.zIndex = 1;
     resizeControlValue.value = RESIZE_VALUE_DEFAULT + '%';
+    scaleValueElement.value = 100;
     applyEffect();
   };
 
@@ -238,9 +239,6 @@
 
   var applyEffect = function () {
     var currentEffect = document.querySelector('.effects__radio:checked').value;
-    scaleValueElement.value = calcEffectScale();
-    scaleValueElement.value = 100;
-
     imagePreviewImage.className = effectsMap[currentEffect].className;
     imagePreviewImage.style.filter = effectsMap[currentEffect].calcFilterValue(scaleValueElement.value);
   };
@@ -294,10 +292,12 @@
   };
 
   var onEffectControlChange = function () {
+    scaleValueElement.value = 100;
     applyEffect();
   };
 
   var onScalePinControlMouseup = function () {
+    scaleValueElement.value = calcEffectScale();
     applyEffect();
   };
 
