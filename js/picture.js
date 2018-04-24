@@ -31,16 +31,12 @@
     'Вот это тачка!'
   ];
 
-  var getRandomInt = function (max) {
-    return Math.floor(Math.random() * Math.floor(max));
-  };
-
   var getRandomComments = function () {
-    return getRandomInt(2) ?
-      [COMMENTS_CATALOG[getRandomInt(COMMENTS_CATALOG.length)]] :
+    return window.util.getRandomInt(2) ?
+      [COMMENTS_CATALOG[window.util.getRandomInt(COMMENTS_CATALOG.length)]] :
       [
-        COMMENTS_CATALOG[getRandomInt(COMMENTS_CATALOG.length)],
-        COMMENTS_CATALOG[getRandomInt(COMMENTS_CATALOG.length)]
+        COMMENTS_CATALOG[window.util.getRandomInt(COMMENTS_CATALOG.length)],
+        COMMENTS_CATALOG[window.util.getRandomInt(COMMENTS_CATALOG.length)]
       ];
   };
 
@@ -49,9 +45,9 @@
     for (var i = 1; i <= num; i++) {
       var photo = {
         url: PHOTOS_PATH + i + PHOTOS_EXT,
-        likes: LIKES_MIN + getRandomInt(LIKES_MAX - LIKES_MIN + 1),
+        likes: LIKES_MIN + window.util.getRandomInt(LIKES_MAX - LIKES_MIN + 1),
         comments: getRandomComments(),
-        description: DESCRIPTION_CATALOG[getRandomInt(DESCRIPTION_CATALOG.length)]
+        description: DESCRIPTION_CATALOG[window.util.getRandomInt(DESCRIPTION_CATALOG.length)]
       };
       photosList.push(photo);
     }
@@ -130,7 +126,7 @@
     }
     for (var i = 0; i < photo.comments.length; i++) {
       var commentText = photo.comments[i];
-      var avatarUrl = 'img/avatar-' + (1 + getRandomInt(5)) + '.svg';
+      var avatarUrl = 'img/avatar-' + (1 + window.util.getRandomInt(5)) + '.svg';
       pictureComentsList.appendChild(renderComent(commentText, avatarUrl));
     }
 
