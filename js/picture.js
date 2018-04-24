@@ -179,6 +179,8 @@
 
   var effectControls = document.querySelectorAll('.effects__radio');
   var scaleElement = document.querySelector('.img-upload__scale');
+  var scaleLineElement = document.querySelector('.scale__line');
+  var scaleLevelElement = document.querySelector('.scale__level');
   var scalePinControl = document.querySelector('.scale__pin');
   var scaleValueElement = document.querySelector('.scale__value');
   var imagePreviewImage = document.querySelector('.img-upload__preview img');
@@ -231,8 +233,8 @@
 
     resizeControlsPanel.style.zIndex = 1;
     resizeControlValue.value = RESIZE_VALUE_DEFAULT + '%';
-    scaleValueElement.value = 100;
-    applyEffect();
+    imagePreviewElement.style.transform = null;
+    applyEffect(true);
   };
 
   var hideImageUploadElement = function () {
@@ -241,15 +243,26 @@
     uploadFileElement.value = '';
   };
 
-  var applyEffect = function () {
+  var applyEffect = function (toDefault) {
     var currentEffect = document.querySelector('.effects__radio:checked').value;
-    imagePreviewImage.className = effectsMap[currentEffect].className;
-    imagePreviewImage.style.filter = effectsMap[currentEffect].calcFilterValue(scaleValueElement.value);
+
     if (currentEffect === 'none') {
       scaleElement.classList.add('hidden');
     } else if (scaleElement.classList.contains('hidden')) {
       scaleElement.classList.remove('hidden');
     }
+
+    if (toDefault) {
+      var leftPositon = scaleLineElement.getBoundingClientRect().left;
+      var rightPositon = scaleLineElement.getBoundingClientRect().right;
+
+      scalePinControl.style.left = rightPositon - leftPositon + 'px';
+      scaleLevelElement.style.width = rightPositon - leftPositon + 'px';
+      scaleValueElement.value = calcEffectScale();
+    }
+
+    imagePreviewImage.className = effectsMap[currentEffect].className;
+    imagePreviewImage.style.filter = effectsMap[currentEffect].calcFilterValue(scaleValueElement.value);
   };
 
   var decreaseResizeControlValue = function () {
@@ -271,8 +284,6 @@
   };
 
   var calcEffectScale = function () {
-    var scaleLineElement = document.querySelector('.scale__line');
-    var scaleLevelElement = document.querySelector('.scale__level');
     var maxValue = scaleLineElement.offsetWidth;
     var currentValue = scaleLevelElement.offsetWidth;
     return Math.round(currentValue / maxValue * 100);
@@ -331,13 +342,47 @@
   };
 
   var onEffectControlChange = function () {
-    scaleValueElement.value = 100;
-    applyEffect();
+    applyEffect(true);
   };
 
-  var onScalePinControlMouseup = function () {
-    scaleValueElement.value = calcEffectScale();
-    applyEffect();
+  var onScalePinControlMousedown = function (evt) {
+    evt.preventDefault();
+
+    var startCoordX = evt.clientX;
+    var linePosition = scaleLineElement.getBoundingClientRect();
+    var leftBorder = linePosition.left;
+    var rightBorder = linePosition.right;
+
+    var onScalePinControlMousemove = function (moveEvt) {
+      moveEvt.preventDefault();
+
+      if (moveEvt.clientX < leftBorder || moveEvt.clientX > rightBorder) {
+        return;
+      }
+
+      var shiftX = startCoordX - moveEvt.clientX;
+      startCoordX = moveEvt.clientX;
+
+      scalePinControl.style.left = (scalePinControl.offsetLeft - shiftX) + 'px';
+      scaleLevelElement.style.width = (scaleLevelElement.offsetWidth - shiftX) + 'px';
+
+      scaleValueElement.value = calcEffectScale();
+      // console.log(scaleValueElement.value);
+      applyEffect();
+    };
+
+    var onScalePinControlMouseup = function (upEvt) {
+      upEvt.preventDefault();
+
+      scaleValueElement.value = calcEffectScale();
+      applyEffect();
+
+      document.removeEventListener('mousemove', onScalePinControlMousemove);
+      document.removeEventListener('mouseup', onScalePinControlMouseup);
+    };
+
+    document.addEventListener('mousemove', onScalePinControlMousemove);
+    document.addEventListener('mouseup', onScalePinControlMouseup);
   };
 
   var onHashtagsInput = function () {
@@ -363,7 +408,7 @@
   resizeControlMinus.addEventListener('click', onResizeControlMinusClick);
   resizeControlPlus.addEventListener('click', onResizeControlPlusClick);
 
-  scalePinControl.addEventListener('mouseup', onScalePinControlMouseup);
+  scalePinControl.addEventListener('mousedown', onScalePinControlMousedown);
 
   for (var i = 0; i < effectControls.length; i++) {
     effectControls[i].addEventListener('change', onEffectControlChange);
