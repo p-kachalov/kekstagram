@@ -233,6 +233,7 @@
 
     resizeControlsPanel.style.zIndex = 1;
     resizeControlValue.value = RESIZE_VALUE_DEFAULT + '%';
+    imagePreviewElement.style.transform = null;
     applyEffect(true);
   };
 
