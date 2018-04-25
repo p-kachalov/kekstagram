@@ -4,7 +4,7 @@
   var photoTemplate = document.querySelector('#picture')
       .content.querySelector('.picture__link');
 
-  var renderPictureElement = function (photo, clickHandler) {
+  var renderPictureElement = function (photo, onPictureClick) {
     var pictureElement = photoTemplate.cloneNode(true);
     var pictureImage = pictureElement.querySelector('.picture__img');
     var pictureLikes = pictureElement.querySelector('.picture__stat--likes');
@@ -15,7 +15,7 @@
     pictureComents.textContent = photo.comments.length;
     pictureElement.addEventListener('click', function (evt) {
       evt.preventDefault();
-      clickHandler(photo);
+      onPictureClick(photo);
     });
     return pictureElement;
   };

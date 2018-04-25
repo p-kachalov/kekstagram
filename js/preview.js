@@ -33,7 +33,7 @@
     return commentElement;
   };
 
-  var showBigPictureElemnt = function (photo) {
+  var showBigPictureElement = function (photo) {
     var pictureImage = bigPictureElement.querySelector('.big-picture__img img');
     var pictureLikes = bigPictureElement.querySelector('.likes-count');
     var pictureComentsCount = bigPictureElement.querySelector('.comments-count');
@@ -62,24 +62,24 @@
     document.addEventListener('keydown', onDocumentBigPictureEscKeydown);
   };
 
-  var hideBigPictureElemnt = function () {
+  var hideBigPictureElement = function () {
     bigPictureElement.classList.add('hidden');
     bigPictureCancel.removeEventListener('click', onBigPictureCancelClick);
     document.removeEventListener('keydown', onDocumentBigPictureEscKeydown);
   };
 
   var onBigPictureCancelClick = function () {
-    hideBigPictureElemnt();
+    hideBigPictureElement();
   };
 
   var onDocumentBigPictureEscKeydown = function (evt) {
     if (evt.keyCode === ESC_KEYCODE) {
-      hideBigPictureElemnt();
+      hideBigPictureElement();
     }
   };
 
   window.preview = {
-    showBigPictureElemnt: showBigPictureElemnt
+    showBigPictureElement: showBigPictureElement
   };
 
 })();
