@@ -40,10 +40,12 @@
     var pictureComentsList = bigPictureElement.querySelector('.social__comments');
     var socialCommentCount = bigPictureElement.querySelector('.social__comment-count');
     var socialCommentLoad = bigPictureElement.querySelector('.social__comment-loadmore');
+    var headerCaption = bigPictureElement.querySelector('.social__caption');
 
     pictureImage.src = photo.url;
     pictureLikes.textContent = photo.likes;
     pictureComentsCount.textContent = photo.comments.length;
+    headerCaption.textContent = photo.comments[0];
 
     while (pictureComentsList.firstChild) {
       pictureComentsList.removeChild(pictureComentsList.firstChild);

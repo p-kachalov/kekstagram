@@ -41,8 +41,18 @@
 
   var onSubmitImageUplodadForm = function (evt) {
     evt.preventDefault();
+    var onLoad = function () {
+      imageUploadForm.reset();
+      hideImageUploadElement();
+    };
+
+    var onError = function (err) {
+      alert(err);
+    };
+
     if (imageUploadForm.reportValidity()) {
-      imageUploadForm.submit();
+      var formData = new FormData(imageUploadForm);
+      window.backend.postData(formData, onLoad, onError);
     }
   };
 
@@ -50,4 +60,5 @@
   uploadCancedElement.addEventListener('click', onUploadCancelClick);
 
   imageUploadForm.addEventListener('submit', onSubmitImageUplodadForm);
+
 })();

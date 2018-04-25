@@ -2,8 +2,6 @@
 
 (function () {
 
-  var PHOTOS_NUMBER = 25;
-
   var renderPicturesSet = function (data) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < data.length; i++) {
@@ -15,9 +13,16 @@
     return fragment;
   };
 
-  var randomPhotosSet = window.dataMock.makeRandomPhotosSet(PHOTOS_NUMBER);
-  var photosSetFragment = renderPicturesSet(randomPhotosSet);
-  var picturesElement = document.querySelector('.pictures');
-  picturesElement.appendChild(photosSetFragment);
+  var onLoad = function (data) {
+    var photosSetFragment = renderPicturesSet(data);
+    var picturesElement = document.querySelector('.pictures');
+    picturesElement.appendChild(photosSetFragment);
+  };
+
+  var onError = function (err) {
+    alert(err);
+  };
+
+  window.backend.loadData(onLoad, onError);
 
 })();
