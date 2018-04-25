@@ -14,7 +14,7 @@
     document.addEventListener('keydown', onDocumentEscKeydown);
 
     window.resize.setDefaultSize();
-    window.effects.applyEffect(true);
+    window.effects.setOrigin();
   };
 
   var hideImageUploadElement = function () {
