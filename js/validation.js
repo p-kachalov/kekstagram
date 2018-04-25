@@ -1,6 +1,11 @@
 'use strict';
 
 (function () {
+  var MAX_TAGS = 5;
+  var TAG_LEN_MIN = 2;
+  var TAG_LEN_MAX = 20;
+  var TAG_START_SYMBOL = '#';
+
   var hashTagsElement = document.querySelector('.text__hashtags');
 
   var moreThanOnce = function (list, item) {
@@ -15,15 +20,15 @@
     }
 
     var tags = tagsString.split(' ');
-    if (tags.length > 5) {
+    if (tags.length > MAX_TAGS) {
       return false;
     }
 
     return tags.reduce(function (acc, item) {
       if (
-        item[0] !== '#' ||
-        item.length === 1 ||
-        item.length > 20 ||
+        item[0] !== TAG_START_SYMBOL ||
+        item.length < TAG_LEN_MIN ||
+        item.length > TAG_LEN_MAX ||
         moreThanOnce(tags, item)) {
         return false;
       }
