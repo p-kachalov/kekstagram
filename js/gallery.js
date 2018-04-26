@@ -20,7 +20,7 @@
   };
 
   var onError = function (err) {
-    alert(err);
+    window.util.showErrorMessage(err);
   };
 
   window.backend.loadData(onLoad, onError);

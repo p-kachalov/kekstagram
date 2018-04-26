@@ -47,7 +47,7 @@
     };
 
     var onError = function (err) {
-      alert(err);
+      window.util.showErrorMessage(err);
     };
 
     if (imageUploadForm.reportValidity()) {

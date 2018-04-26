@@ -32,7 +32,6 @@
   var postData = function (formData, onLoad, onError) {
 
     var xhr = new XMLHttpRequest();
-    xhr.timeout = 10000;
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
@@ -50,6 +49,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
+    xhr.timeout = 10000;
     xhr.open('POST', POST_ADDRESS);
     xhr.send(formData);
 
