@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var ORIGIN_EFFECT = {name: 'none', position: 0};
+
   var effectControls = document.querySelectorAll('.effects__radio');
   var scaleElement = document.querySelector('.img-upload__scale');
   var scaleLineElement = document.querySelector('.scale__line');
@@ -10,12 +12,6 @@
   var imagePreviewImage = document.querySelector('.img-upload__preview img');
 
   var effectsMap = {
-    none: {
-      className: '',
-      calcFilterValue: function () {
-        return null;
-      }
-    },
     chrome: {
       className: 'effects__preview--chrome',
       calcFilterValue: function (value) {
@@ -48,26 +44,37 @@
     }
   };
 
-  var applyEffect = function (toDefault) {
+  var applyEffect = function () {
     var currentEffect = document.querySelector('.effects__radio:checked').value;
 
-    if (currentEffect === 'none') {
-      scaleElement.classList.add('hidden');
-    } else if (scaleElement.classList.contains('hidden')) {
-      scaleElement.classList.remove('hidden');
+    if (currentEffect === ORIGIN_EFFECT.name) {
+      setOrigin();
+      return;
     }
 
-    if (toDefault) {
-      var leftPositon = scaleLineElement.getBoundingClientRect().left;
-      var rightPositon = scaleLineElement.getBoundingClientRect().right;
-
-      scalePinControl.style.left = rightPositon - leftPositon + 'px';
-      scaleLevelElement.style.width = rightPositon - leftPositon + 'px';
-      scaleValueElement.value = calcEffectScale();
+    if (scaleElement.classList.contains('hidden')) {
+      scaleElement.classList.remove('hidden');
+      resetEffectValue();
     }
 
     imagePreviewImage.className = effectsMap[currentEffect].className;
     imagePreviewImage.style.filter = effectsMap[currentEffect].calcFilterValue(scaleValueElement.value);
+  };
+
+  var setOrigin = function () {
+    effectControls[ORIGIN_EFFECT.position].checked = true;
+    imagePreviewImage.className = null;
+    imagePreviewImage.style.filter = null;
+    scaleElement.classList.add('hidden');
+  };
+
+  var resetEffectValue = function () {
+    var leftPositon = scaleLineElement.getBoundingClientRect().left;
+    var rightPositon = scaleLineElement.getBoundingClientRect().right;
+
+    scalePinControl.style.left = rightPositon - leftPositon + 'px';
+    scaleLevelElement.style.width = rightPositon - leftPositon + 'px';
+    scaleValueElement.value = calcEffectScale();
   };
 
   var calcEffectScale = function () {
@@ -117,7 +124,8 @@
   };
 
   var onEffectControlChange = function () {
-    applyEffect(true);
+    resetEffectValue();
+    applyEffect();
   };
 
   scalePinControl.addEventListener('mousedown', onScalePinControlMousedown);
@@ -127,6 +135,7 @@
   }
 
   window.effects = {
+    setOrigin: setOrigin,
     applyEffect: applyEffect
   };
 

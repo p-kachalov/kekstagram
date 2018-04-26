@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  var MAX_TAGS = 5;
+  var TAG_TEMPLATE = RegExp('^#([a-zA-Z0-9_]{1,19})$');
+
   var hashTagsElement = document.querySelector('.text__hashtags');
 
   var moreThanOnce = function (list, item) {
@@ -15,15 +18,13 @@
     }
 
     var tags = tagsString.split(' ');
-    if (tags.length > 5) {
+    if (tags.length > MAX_TAGS) {
       return false;
     }
 
     return tags.reduce(function (acc, item) {
       if (
-        item[0] !== '#' ||
-        item.length === 1 ||
-        item.length > 20 ||
+        !TAG_TEMPLATE.test(item) ||
         moreThanOnce(tags, item)) {
         return false;
       }

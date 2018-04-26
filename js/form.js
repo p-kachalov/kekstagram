@@ -14,7 +14,7 @@
     document.addEventListener('keydown', onDocumentEscKeydown);
 
     window.resize.setDefaultSize();
-    window.effects.applyEffect(true);
+    window.effects.setOrigin();
   };
 
   var hideImageUploadElement = function () {
@@ -41,8 +41,18 @@
 
   var onSubmitImageUplodadForm = function (evt) {
     evt.preventDefault();
+    var onLoad = function () {
+      imageUploadForm.reset();
+      hideImageUploadElement();
+    };
+
+    var onError = function (err) {
+      window.util.showErrorMessage(err);
+    };
+
     if (imageUploadForm.reportValidity()) {
-      imageUploadForm.submit();
+      var formData = new FormData(imageUploadForm);
+      window.backend.postData(formData, onLoad, onError);
     }
   };
 
@@ -50,4 +60,5 @@
   uploadCancedElement.addEventListener('click', onUploadCancelClick);
 
   imageUploadForm.addEventListener('submit', onSubmitImageUplodadForm);
+
 })();
