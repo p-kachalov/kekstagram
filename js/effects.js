@@ -44,6 +44,8 @@
     }
   };
 
+  var slider = window.util.makeSlider(scaleLineElement, scaleLevelElement, scalePinControl, scaleValueElement);
+
   var applyEffect = function () {
     var currentEffect = document.querySelector('.effects__radio:checked').value;
 
@@ -54,7 +56,7 @@
 
     if (scaleElement.classList.contains('hidden')) {
       scaleElement.classList.remove('hidden');
-      resetEffectValue();
+      slider.resetToDefault();
     }
 
     imagePreviewImage.className = effectsMap[currentEffect].className;
@@ -68,50 +70,19 @@
     scaleElement.classList.add('hidden');
   };
 
-  var resetEffectValue = function () {
-    var leftPositon = scaleLineElement.getBoundingClientRect().left;
-    var rightPositon = scaleLineElement.getBoundingClientRect().right;
-
-    scalePinControl.style.left = rightPositon - leftPositon + 'px';
-    scaleLevelElement.style.width = rightPositon - leftPositon + 'px';
-    scaleValueElement.value = calcEffectScale();
-  };
-
-  var calcEffectScale = function () {
-    var maxValue = scaleLineElement.offsetWidth;
-    var currentValue = scaleLevelElement.offsetWidth;
-    return Math.round(currentValue / maxValue * 100);
-  };
-
   var onScalePinControlMousedown = function (evt) {
     evt.preventDefault();
-
-    var startCoordX = evt.clientX;
-    var linePosition = scaleLineElement.getBoundingClientRect();
-    var leftBorder = linePosition.left;
-    var rightBorder = linePosition.right;
+    slider.setStartValues(evt.clientX, scaleLineElement.getBoundingClientRect());
 
     var onScalePinControlMousemove = function (moveEvt) {
       moveEvt.preventDefault();
-
-      if (moveEvt.clientX < leftBorder || moveEvt.clientX > rightBorder) {
-        return;
-      }
-
-      var shiftX = startCoordX - moveEvt.clientX;
-      startCoordX = moveEvt.clientX;
-
-      scalePinControl.style.left = (scalePinControl.offsetLeft - shiftX) + 'px';
-      scaleLevelElement.style.width = (scaleLevelElement.offsetWidth - shiftX) + 'px';
-
-      scaleValueElement.value = calcEffectScale();
+      slider.updatePosition(moveEvt.clientX);
       applyEffect();
     };
 
     var onScalePinControlMouseup = function (upEvt) {
       upEvt.preventDefault();
-
-      scaleValueElement.value = calcEffectScale();
+      slider.updatePosition(upEvt.clientX, applyEffect);
       applyEffect();
 
       document.removeEventListener('mousemove', onScalePinControlMousemove);
@@ -123,7 +94,7 @@
   };
 
   var onEffectControlChange = function () {
-    resetEffectValue();
+    slider.resetToDefault();
     applyEffect();
   };
 
