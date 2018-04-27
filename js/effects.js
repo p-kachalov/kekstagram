@@ -44,8 +44,6 @@
     }
   };
 
-  var slider = window.util.makeSlider(scaleLineElement, scaleLevelElement, scalePinControl, scaleValueElement);
-
   var applyEffect = function () {
     var currentEffect = document.querySelector('.effects__radio:checked').value;
 
@@ -70,39 +68,25 @@
     scaleElement.classList.add('hidden');
   };
 
-  var onScalePinControlMousedown = function (evt) {
-    evt.preventDefault();
-    slider.setStartValues(evt.clientX, scaleLineElement.getBoundingClientRect());
-
-    var onScalePinControlMousemove = function (moveEvt) {
-      moveEvt.preventDefault();
-      slider.updatePosition(moveEvt.clientX);
-      applyEffect();
-    };
-
-    var onScalePinControlMouseup = function (upEvt) {
-      upEvt.preventDefault();
-      slider.updatePosition(upEvt.clientX, applyEffect);
-      applyEffect();
-
-      document.removeEventListener('mousemove', onScalePinControlMousemove);
-      document.removeEventListener('mouseup', onScalePinControlMouseup);
-    };
-
-    document.addEventListener('mousemove', onScalePinControlMousemove);
-    document.addEventListener('mouseup', onScalePinControlMouseup);
-  };
-
   var onEffectControlChange = function () {
     slider.resetToDefault();
     applyEffect();
   };
 
-  scalePinControl.addEventListener('mousedown', onScalePinControlMousedown);
-
   for (var i = 0; i < effectControls.length; i++) {
     effectControls[i].addEventListener('change', onEffectControlChange);
   }
+
+  var slider = window.slider.makeSlider(
+      {
+        line: scaleLineElement,
+        level: scaleLevelElement,
+        pin: scalePinControl,
+        input: scaleValueElement,
+      },
+      function () {
+        applyEffect();
+      });
 
   window.effects = {
     setOrigin: setOrigin,
