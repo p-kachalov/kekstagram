@@ -13,10 +13,19 @@
     return fragment;
   };
 
-  var onLoad = function (data) {
+  var updatePictures = function (data) {
     var photosSetFragment = renderPicturesSet(data);
+
     var picturesElement = document.querySelector('.pictures');
+    while (picturesElement.firstChild) {
+      picturesElement.removeChild(picturesElement.firstChild);
+    }
     picturesElement.appendChild(photosSetFragment);
+  };
+
+  var onLoad = function (data) {
+    updatePictures(data);
+    window.filters.showFilters(data, updatePictures);
   };
 
   var onError = function (err) {

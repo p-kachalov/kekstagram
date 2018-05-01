@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var DEBOUNCE_INTERVAL = 500; // ms
+
   var getRandomInt = function (max) {
     return Math.floor(Math.random() * Math.floor(max));
   };
@@ -30,8 +32,17 @@
     document.addEventListener('click', hideErrorMessage);
   };
 
+  var lastTimeout;
+  var debounce = function (fun) {
+    if (lastTimeout) {
+      window.clearTimeout(lastTimeout);
+    }
+    lastTimeout = window.setTimeout(fun, DEBOUNCE_INTERVAL);
+  };
+
   window.util = {
     getRandomInt: getRandomInt,
     showErrorMessage: showErrorMessage,
+    debounce: debounce
   };
 })();
