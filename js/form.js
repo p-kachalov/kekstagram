@@ -20,7 +20,8 @@
   var hideImageUploadElement = function () {
     imageUploadElement.classList.add('hidden');
     document.removeEventListener('keydown', onDocumentEscKeydown);
-    uploadFileElement.value = '';
+    imageUploadForm.reset();
+    window.validation.resetErrors();
   };
 
   var onUploadFileChange = function () {

@@ -6,6 +6,11 @@
 
   var hashTagsElement = document.querySelector('.text__hashtags');
 
+  var resetErrors = function () {
+    hashTagsElement.setCustomValidity('');
+    hashTagsElement.style.outline = null;
+  };
+
   var isTagsStringValid = function (tagsString) {
     if (tagsString.length === 0) {
       return true;
@@ -38,10 +43,14 @@
       hashTagsElement.setCustomValidity('hashtags invalid');
       hashTagsElement.style.outline = '5px solid red';
     } else {
-      hashTagsElement.setCustomValidity('');
-      hashTagsElement.style.outline = null;
+      resetErrors();
     }
   };
 
   hashTagsElement.addEventListener('input', onHashtagsInput);
+
+  window.validation = {
+    resetErrors: resetErrors
+  };
+
 })();
