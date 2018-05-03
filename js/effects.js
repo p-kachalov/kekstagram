@@ -11,7 +11,7 @@
   var scaleValueElement = document.querySelector('.scale__value');
   var imagePreviewImage = document.querySelector('.img-upload__preview img');
 
-  var effectsMap = {
+  var EffectsMap = {
     chrome: {
       className: 'effects__preview--chrome',
       calcFilterValue: function (value) {
@@ -57,8 +57,8 @@
       slider.resetToDefault();
     }
 
-    imagePreviewImage.className = effectsMap[currentEffect].className;
-    imagePreviewImage.style.filter = effectsMap[currentEffect].calcFilterValue(scaleValueElement.value);
+    imagePreviewImage.className = EffectsMap[currentEffect].className;
+    imagePreviewImage.style.filter = EffectsMap[currentEffect].calcFilterValue(scaleValueElement.value);
   };
 
   var setOrigin = function () {
