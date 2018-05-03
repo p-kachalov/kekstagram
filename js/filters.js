@@ -7,37 +7,24 @@
   var filtersBlock = document.querySelector('.img-filters');
   var filtersControls = filtersBlock.querySelectorAll('.img-filters__button');
 
-  var filtersMap = {
-    'filter-recomended': function (data) {
-      return data;
+  var sortFunctions = {
+    'filter-recomended': function () {
+      return 0;
     },
-    'filter-popular': function (data) {
-      return data.sort(function (a, b) {
-        return b.likes - a.likes;
-      });
+    'filter-popular': function (a, b) {
+      return b.likes - a.likes;
     },
-    'filter-discussed': function (data) {
-      return data.sort(function (a, b) {
-        return b.comments.length - a.comments.length;
-      });
+    'filter-discussed': function (a, b) {
+      return b.comments.length - a.comments.length;
     },
-    'filter-random': function (data) {
-      var random;
-      var tmp;
-      for (var i = data.length - 1; i > 0; i--) {
-        random = window.util.getRandomInt(i);
-        tmp = data[i];
-        data[i] = data[random];
-        data[random] = tmp;
-      }
-
-      return data;
+    'filter-random': function () {
+      return window.util.getRandomInt(2) ? 1 : -1;
     }
   };
 
   var applyFilter = function (data, cb) {
     var filterName = filtersBlock.querySelector('.' + ACTIVE_CLASS).id;
-    var result = filtersMap[filterName](data.slice());
+    var result = data.slice().sort(sortFunctions[filterName]);
     cb(result);
   };
 
