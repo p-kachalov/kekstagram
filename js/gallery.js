@@ -26,7 +26,7 @@
 
   var onLoad = function (data) {
     updatePictures(data);
-    window.filters.showFilters(data, updatePictures);
+    window.sorts.showSorts(data, updatePictures);
   };
 
   var onError = function (err) {

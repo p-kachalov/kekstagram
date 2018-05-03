@@ -4,8 +4,8 @@
 
   var ACTIVE_CLASS = 'img-filters__button--active';
 
-  var filtersBlock = document.querySelector('.img-filters');
-  var filtersControls = filtersBlock.querySelectorAll('.img-filters__button');
+  var sortsBlock = document.querySelector('.img-filters');
+  var sortsControls = sortsBlock.querySelectorAll('.img-filters__button');
 
   var sortFunctions = {
     'filter-recomended': function () {
@@ -22,22 +22,22 @@
     }
   };
 
-  var applyFilter = function (data, cb) {
-    var filterName = filtersBlock.querySelector('.' + ACTIVE_CLASS).id;
+  var sortPhotos = function (data, cb) {
+    var filterName = sortsBlock.querySelector('.' + ACTIVE_CLASS).id;
     var result = data.slice().sort(sortFunctions[filterName]);
     cb(result);
   };
 
   var clearActivity = function () {
-    filtersControls.forEach(function (item) {
+    sortsControls.forEach(function (item) {
       item.classList.remove(ACTIVE_CLASS);
     });
   };
 
-  var showFilters = function (data, cb) {
-    filtersBlock.classList.remove('img-filters--inactive');
+  var showSorts = function (data, cb) {
+    sortsBlock.classList.remove('img-filters--inactive');
 
-    filtersControls.forEach(function (item) {
+    sortsControls.forEach(function (item) {
       item.addEventListener('click', function (evt) {
         evt.preventDefault();
         if (evt.target.classList.contains(ACTIVE_CLASS)) {
@@ -47,13 +47,13 @@
         clearActivity();
         evt.target.classList.add(ACTIVE_CLASS);
         window.util.debounce(function () {
-          applyFilter(data, cb);
+          sortPhotos(data, cb);
         });
       });
     });
   };
 
-  window.filters = {
-    showFilters: showFilters
+  window.sorts = {
+    showSorts: showSorts
   };
 })();
