@@ -24,6 +24,10 @@
     window.validation.resetErrors();
   };
 
+  var showUploadErrorBlock = function () {
+    document.querySelector('.img-upload__message--error').classList.remove('hidden');
+  };
+
   var onUploadFileChange = function () {
     showImageUploadElement();
   };
@@ -47,8 +51,9 @@
       hideImageUploadElement();
     };
 
-    var onError = function (err) {
-      window.util.showErrorMessage(err);
+    var onError = function () {
+      hideImageUploadElement();
+      showUploadErrorBlock();
     };
 
     if (imageUploadForm.reportValidity()) {
