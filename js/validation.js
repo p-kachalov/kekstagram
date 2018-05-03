@@ -17,7 +17,10 @@
       return true;
     }
 
-    var tags = tagsString.split(' ');
+    var tags = tagsString.split(' ').filter(function (item) {
+      return item;
+    });
+
     if (tags.length > MAX_TAGS) {
       return false;
     }
