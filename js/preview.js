@@ -38,7 +38,6 @@
     var pictureLikes = bigPictureElement.querySelector('.likes-count');
     var pictureComentsCount = bigPictureElement.querySelector('.comments-count');
     var pictureComentsList = bigPictureElement.querySelector('.social__comments');
-    var socialCommentCount = bigPictureElement.querySelector('.social__comment-count');
     var socialCommentLoad = bigPictureElement.querySelector('.social__comment-loadmore');
     var headerCaption = bigPictureElement.querySelector('.social__caption');
 
@@ -56,7 +55,6 @@
       pictureComentsList.appendChild(renderComent(commentText, avatarUrl));
     }
 
-    socialCommentCount.classList.add('visually-hidden');
     socialCommentLoad.classList.add('visually-hidden');
 
     bigPictureElement.classList.remove('hidden');
