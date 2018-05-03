@@ -60,12 +60,16 @@
     socialCommentLoad.classList.add('visually-hidden');
 
     bigPictureElement.classList.remove('hidden');
+    document.querySelector('body').classList.add('modal-open');
+
     bigPictureCancel.addEventListener('click', onBigPictureCancelClick);
     document.addEventListener('keydown', onDocumentBigPictureEscKeydown);
   };
 
   var hideBigPictureElement = function () {
     bigPictureElement.classList.add('hidden');
+    document.querySelector('body').classList.remove('modal-open');
+
     bigPictureCancel.removeEventListener('click', onBigPictureCancelClick);
     document.removeEventListener('keydown', onDocumentBigPictureEscKeydown);
   };
