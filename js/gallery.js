@@ -17,9 +17,10 @@
     var photosSetFragment = renderPicturesSet(data);
 
     var picturesElement = document.querySelector('.pictures');
-    while (picturesElement.firstChild) {
-      picturesElement.removeChild(picturesElement.firstChild);
-    }
+    document.querySelectorAll('.picture__link').forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+
     picturesElement.appendChild(photosSetFragment);
   };
 
