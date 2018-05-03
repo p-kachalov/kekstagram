@@ -8,7 +8,7 @@
 
   var moreThanOnce = function (list, item) {
     return list.reduce(function (acc, elem) {
-      return elem.toLowerCase() === item.toLowerCase() ? acc + 1 : acc;
+      return elem === item ? acc + 1 : acc;
     }, 0) !== 1;
   };
 
@@ -17,9 +17,13 @@
       return true;
     }
 
-    var tags = tagsString.split(' ').filter(function (item) {
-      return item;
-    });
+    var tags = tagsString.split(' ')
+        .filter(function (item) {
+          return item;
+        })
+        .map(function (item) {
+          return item.toLowerCase();
+        });
 
     if (tags.length > MAX_TAGS) {
       return false;
