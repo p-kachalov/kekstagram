@@ -6,12 +6,6 @@
 
   var hashTagsElement = document.querySelector('.text__hashtags');
 
-  var moreThanOnce = function (list, item) {
-    return list.reduce(function (acc, elem) {
-      return elem === item ? acc + 1 : acc;
-    }, 0) !== 1;
-  };
-
   var isTagsStringValid = function (tagsString) {
     if (tagsString.length === 0) {
       return true;
@@ -32,7 +26,7 @@
     return tags.reduce(function (acc, item) {
       if (
         !TAG_TEMPLATE.test(item) ||
-        moreThanOnce(tags, item)) {
+        window.util.moreThanOnce(tags, item)) {
         return false;
       }
       return acc;
