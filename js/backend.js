@@ -6,8 +6,9 @@
   var TIMEOUT = 10000;
   var RESPONSE_TYPE = 'json';
 
-  var runRequest = function (method, address, postData, onLoad, onError) {
+  var makeRequest = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
+    xhr.timeout = TIMEOUT;
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
@@ -25,18 +26,20 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = TIMEOUT;
-    xhr.responseType = RESPONSE_TYPE;
-    xhr.open(method, address);
-    xhr.send(postData);
+    return xhr;
   };
 
   var loadData = function (onLoad, onError) {
-    runRequest('GET', GET_ADDRESS, null, onLoad, onError);
+    var request = makeRequest(onLoad, onError);
+    request.responseType = RESPONSE_TYPE;
+    request.open('GET', GET_ADDRESS);
+    request.send(postData);
   };
 
   var postData = function (formData, onLoad, onError) {
-    runRequest('POST', POST_ADDRESS, formData, onLoad, onError);
+    var request = makeRequest(onLoad, onError);
+    request.open('POST', POST_ADDRESS);
+    request.send(formData);
   };
 
   window.backend = {
