@@ -40,9 +40,19 @@
     lastTimeout = window.setTimeout(fun, DEBOUNCE_INTERVAL);
   };
 
+  var shuffleArray = function (arr) {
+    var result = [];
+    while (arr.length > 0) {
+      var rnd = getRandomInt(arr.length);
+      result.push(arr.splice(rnd, 1)[0]);
+    }
+    return result;
+  };
+
   window.util = {
     getRandomInt: getRandomInt,
     showErrorMessage: showErrorMessage,
-    debounce: debounce
+    debounce: debounce,
+    shuffleArray: shuffleArray
   };
 })();

@@ -8,23 +8,27 @@
   var sortsControls = sortsBlock.querySelectorAll('.img-filters__button');
 
   var sortFunctions = {
-    'filter-recomended': function () {
-      return 0;
+    'filter-recomended': function (data) {
+      return data;
     },
-    'filter-popular': function (a, b) {
-      return b.likes - a.likes;
+    'filter-popular': function (data) {
+      return data.sort(function (a, b) {
+        return b.likes - a.likes;
+      });
     },
-    'filter-discussed': function (a, b) {
-      return b.comments.length - a.comments.length;
+    'filter-discussed': function (data) {
+      return data.sort(function (a, b) {
+        return b.comments.length - a.comments.length;
+      });
     },
-    'filter-random': function () {
-      return window.util.getRandomInt(2) ? 1 : -1;
+    'filter-random': function (data) {
+      return window.util.shuffleArray(data);
     }
   };
 
   var sortPhotos = function (data, cb) {
-    var filterName = sortsBlock.querySelector('.' + ACTIVE_CLASS).id;
-    var result = data.slice().sort(sortFunctions[filterName]);
+    var sortName = sortsBlock.querySelector('.' + ACTIVE_CLASS).id;
+    var result = sortFunctions[sortName](data.slice());
     cb(result);
   };
 
