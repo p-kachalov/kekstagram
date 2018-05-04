@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var DEBOUNCE_INTERVAL = 500; // ms
-
   var getRandomInt = function (max) {
     return Math.floor(Math.random() * Math.floor(max));
   };
@@ -32,14 +30,6 @@
     document.addEventListener('click', hideErrorMessage);
   };
 
-  var lastTimeout;
-  var debounce = function (fun) {
-    if (lastTimeout) {
-      window.clearTimeout(lastTimeout);
-    }
-    lastTimeout = window.setTimeout(fun, DEBOUNCE_INTERVAL);
-  };
-
   var shuffleArray = function (arr) {
     var result = [];
     while (arr.length > 0) {
@@ -58,7 +48,6 @@
   window.util = {
     getRandomInt: getRandomInt,
     showErrorMessage: showErrorMessage,
-    debounce: debounce,
     shuffleArray: shuffleArray,
     moreThanOnce: moreThanOnce
   };

@@ -50,7 +50,7 @@
 
         clearActivity();
         evt.target.classList.add(ACTIVE_CLASS);
-        window.util.debounce(function () {
+        window.debounce(function () {
           sortPhotos(data, cb);
         });
       });
