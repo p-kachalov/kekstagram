@@ -37,7 +37,7 @@
 
   var onHashtagsInput = function () {
     if (!isTagsStringValid(hashTagsElement.value)) {
-      hashTagsElement.setCustomValidity('hashtags invalid');
+      hashTagsElement.setCustomValidity('неверный формат хэштегов');
       hashTagsElement.style.outline = '5px solid red';
     } else {
       resetErrors();
