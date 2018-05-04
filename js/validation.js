@@ -31,7 +31,7 @@
     return tags.reduce(function (acc, item) {
       if (
         !TAG_TEMPLATE.test(item) ||
-        window.util.moreThanOnce(tags, item)) {
+        window.util.isMoreThanOnce(tags, item)) {
         return false;
       }
       return acc;

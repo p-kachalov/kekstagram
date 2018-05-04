@@ -39,7 +39,7 @@
     return result;
   };
 
-  var moreThanOnce = function (list, item) {
+  var isMoreThanOnce = function (list, item) {
     return list.reduce(function (acc, elem) {
       return elem === item ? acc + 1 : acc;
     }, 0) !== 1;
@@ -49,6 +49,6 @@
     getRandomInt: getRandomInt,
     showErrorMessage: showErrorMessage,
     shuffleArray: shuffleArray,
-    moreThanOnce: moreThanOnce
+    isMoreThanOnce: isMoreThanOnce
   };
 })();
