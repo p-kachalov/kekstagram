@@ -16,12 +16,9 @@
       return true;
     }
 
-    var tags = tagsString.split(' ')
+    var tags = tagsString.toLowerCase().split(' ')
         .filter(function (item) {
           return item;
-        })
-        .map(function (item) {
-          return item.toLowerCase();
         });
 
     if (tags.length > MAX_TAGS) {
