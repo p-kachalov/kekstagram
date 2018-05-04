@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
 
   var bigPictureElement = document.querySelector('.big-picture');
   var bigPictureCancel = bigPictureElement.querySelector('.big-picture__cancel');
@@ -77,7 +76,7 @@
   };
 
   var onDocumentBigPictureEscKeydown = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
+    if (evt.keyCode === window.util.KeyCode.ESC) {
       hideBigPictureElement();
     }
   };

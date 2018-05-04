@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
 
   var uploadFileElement = document.querySelector('#upload-file');
   var uploadCancedElement = document.querySelector('#upload-cancel');
@@ -37,7 +36,7 @@
   };
 
   var onDocumentEscKeydown = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE &&
+    if (evt.keyCode === window.util.KeyCode.ESC &&
       evt.target !== document.querySelector('.text__hashtags') &&
       evt.target !== document.querySelector('.text__description')) {
       hideImageUploadElement();

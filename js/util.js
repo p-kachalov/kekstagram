@@ -1,6 +1,10 @@
 'use strict';
 
 (function () {
+  var KeyCode = {
+    ESC: 27
+  };
+
   var getRandomInt = function (max) {
     return Math.floor(Math.random() * Math.floor(max));
   };
@@ -23,6 +27,7 @@
   window.util = {
     getRandomInt: getRandomInt,
     shuffleArray: shuffleArray,
-    isMoreThanOnce: isMoreThanOnce
+    isMoreThanOnce: isMoreThanOnce,
+    KeyCode: KeyCode
   };
 })();
