@@ -31,10 +31,8 @@
         return 'хеш-тег не может состоять только из одной решётки';
       } else if (tag.length > 20) {
         return 'максимальная длина одного хэш-тега 20 символов';
-      } else if (tags.slice(0, i).includes(tag)) {
+      } else if (tags.includes(tag, i + 1)) {
         return 'один и тот же хэш-тег не может быть использован дважды';
-      } else {
-        continue;
       }
     }
 
