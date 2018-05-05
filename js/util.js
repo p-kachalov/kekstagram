@@ -18,16 +18,9 @@
     return result;
   };
 
-  var isMoreThanOnce = function (list, item) {
-    return list.reduce(function (acc, elem) {
-      return elem === item ? acc + 1 : acc;
-    }, 0) !== 1;
-  };
-
   window.util = {
     getRandomInt: getRandomInt,
     shuffleArray: shuffleArray,
-    isMoreThanOnce: isMoreThanOnce,
     KeyCode: KeyCode
   };
 })();
