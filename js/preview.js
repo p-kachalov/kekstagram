@@ -48,11 +48,11 @@
     while (pictureComentsList.firstChild) {
       pictureComentsList.removeChild(pictureComentsList.firstChild);
     }
-    for (var i = 0; i < photo.comments.length; i++) {
-      var commentText = photo.comments[i];
+
+    photo.comments.forEach(function (comment) {
       var avatarUrl = 'img/avatar-' + (1 + window.util.getRandomInt(5)) + '.svg';
-      pictureComentsList.appendChild(renderComent(commentText, avatarUrl));
-    }
+      pictureComentsList.appendChild(renderComent(comment, avatarUrl));
+    });
 
     socialCommentLoad.classList.add('visually-hidden');
 
