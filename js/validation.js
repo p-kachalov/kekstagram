@@ -27,11 +27,14 @@
       var tag = tags[i];
       if (tag[0] !== '#') {
         return 'хэш-тег начинается с символа # (решётка)';
-      } else if (tag.length < 2) {
+      }
+      if (tag.length < 2) {
         return 'хеш-тег не может состоять только из одной решётки';
-      } else if (tag.length > 20) {
+      }
+      if (tag.length > 20) {
         return 'максимальная длина одного хэш-тега 20 символов';
-      } else if (tags.includes(tag, i + 1)) {
+      }
+      if (tags.includes(tag, i + 1)) {
         return 'один и тот же хэш-тег не может быть использован дважды';
       }
     }
