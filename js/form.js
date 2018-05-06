@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
 
   var uploadFileElement = document.querySelector('#upload-file');
   var uploadCancedElement = document.querySelector('#upload-cancel');
@@ -20,7 +19,12 @@
   var hideImageUploadElement = function () {
     imageUploadElement.classList.add('hidden');
     document.removeEventListener('keydown', onDocumentEscKeydown);
-    uploadFileElement.value = '';
+    imageUploadForm.reset();
+    window.validation.resetErrors();
+  };
+
+  var showUploadErrorBlock = function () {
+    document.querySelector('.img-upload__message--error').classList.remove('hidden');
   };
 
   var onUploadFileChange = function () {
@@ -32,7 +36,7 @@
   };
 
   var onDocumentEscKeydown = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE &&
+    if (evt.keyCode === window.util.KeyCode.ESC &&
       evt.target !== document.querySelector('.text__hashtags') &&
       evt.target !== document.querySelector('.text__description')) {
       hideImageUploadElement();
@@ -46,8 +50,9 @@
       hideImageUploadElement();
     };
 
-    var onError = function (err) {
-      window.util.showErrorMessage(err);
+    var onError = function () {
+      hideImageUploadElement();
+      showUploadErrorBlock();
     };
 
     if (imageUploadForm.reportValidity()) {

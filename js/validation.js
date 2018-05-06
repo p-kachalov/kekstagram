@@ -2,45 +2,60 @@
 
 (function () {
   var MAX_TAGS = 5;
-  var TAG_TEMPLATE = RegExp('^#([a-zA-Z0-9_]{1,19})$');
 
   var hashTagsElement = document.querySelector('.text__hashtags');
 
-  var moreThanOnce = function (list, item) {
-    return list.reduce(function (acc, elem) {
-      return elem.toLowerCase() === item.toLowerCase() ? acc + 1 : acc;
-    }, 0) !== 1;
+  var resetErrors = function () {
+    hashTagsElement.setCustomValidity('');
+    hashTagsElement.style.outline = null;
   };
 
-  var isTagsStringValid = function (tagsString) {
+  var getErrorForTagsString = function (tagsString) {
     if (tagsString.length === 0) {
-      return true;
+      return null;
     }
 
-    var tags = tagsString.split(' ');
+    var tags = tagsString.toLowerCase().split(' ').filter(function (item) {
+      return item;
+    });
+
     if (tags.length > MAX_TAGS) {
-      return false;
+      return 'нельзя указать больше пяти хэш-тегов';
     }
 
-    return tags.reduce(function (acc, item) {
-      if (
-        !TAG_TEMPLATE.test(item) ||
-        moreThanOnce(tags, item)) {
-        return false;
+    for (var i = 0; i < tags.length; i++) {
+      var tag = tags[i];
+      if (tag[0] !== '#') {
+        return 'хэш-тег начинается с символа # (решётка)';
       }
-      return acc;
-    }, true);
+      if (tag.length < 2) {
+        return 'хеш-тег не может состоять только из одной решётки';
+      }
+      if (tag.length > 20) {
+        return 'максимальная длина одного хэш-тега 20 символов';
+      }
+      if (tags.includes(tag, i + 1)) {
+        return 'один и тот же хэш-тег не может быть использован дважды';
+      }
+    }
+
+    return null;
   };
 
   var onHashtagsInput = function () {
-    if (!isTagsStringValid(hashTagsElement.value)) {
-      hashTagsElement.setCustomValidity('hashtags invalid');
+    var error = getErrorForTagsString(hashTagsElement.value);
+    if (error) {
+      hashTagsElement.setCustomValidity(error);
       hashTagsElement.style.outline = '5px solid red';
     } else {
-      hashTagsElement.setCustomValidity('');
-      hashTagsElement.style.outline = null;
+      resetErrors();
     }
   };
 
   hashTagsElement.addEventListener('input', onHashtagsInput);
+
+  window.validation = {
+    resetErrors: resetErrors
+  };
+
 })();

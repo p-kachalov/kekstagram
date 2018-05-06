@@ -7,7 +7,7 @@
   var sortsBlock = document.querySelector('.img-filters');
   var sortsControls = sortsBlock.querySelectorAll('.img-filters__button');
 
-  var sortFunctions = {
+  var SortFunctions = {
     'filter-recomended': function (data) {
       return data;
     },
@@ -28,7 +28,7 @@
 
   var sortPhotos = function (data, cb) {
     var sortName = sortsBlock.querySelector('.' + ACTIVE_CLASS).id;
-    var result = sortFunctions[sortName](data.slice());
+    var result = SortFunctions[sortName](data.slice());
     cb(result);
   };
 
@@ -50,7 +50,7 @@
 
         clearActivity();
         evt.target.classList.add(ACTIVE_CLASS);
-        window.util.debounce(function () {
+        window.debounce(function () {
           sortPhotos(data, cb);
         });
       });
