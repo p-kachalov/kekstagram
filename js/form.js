@@ -5,10 +5,13 @@
   var uploadFileElement = document.querySelector('#upload-file');
   var uploadCancedElement = document.querySelector('#upload-cancel');
   var imageUploadElement = document.querySelector('.img-upload__overlay');
-
   var imageUploadForm = document.querySelector('.img-upload__form');
 
   var showImageUploadElement = function () {
+    if (!window.loadUserFile(uploadFileElement)) {
+      return;
+    }
+
     imageUploadElement.classList.remove('hidden');
     document.addEventListener('keydown', onDocumentEscKeydown);
 
