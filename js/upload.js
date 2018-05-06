@@ -3,7 +3,6 @@
 (function () {
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-  var uploadFileElement = document.querySelector('#upload-file');
   var imagePreview = document.querySelector('.img-upload__preview img');
   var effectsPreviews = document.querySelectorAll('.effects__preview');
 
@@ -15,7 +14,7 @@
     });
   };
 
-  var loadUserFile = function () {
+  var loadUserFile = function (uploadFileElement) {
     var file = uploadFileElement.files[0];
     var fileName = file.name.toLowerCase();
 

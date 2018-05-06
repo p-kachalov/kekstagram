@@ -8,7 +8,7 @@
   var imageUploadForm = document.querySelector('.img-upload__form');
 
   var showImageUploadElement = function () {
-    if (!window.loadUserFile()) {
+    if (!window.loadUserFile(uploadFileElement)) {
       return;
     }
 
