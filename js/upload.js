@@ -1,0 +1,40 @@
+'use strict';
+
+(function () {
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
+  var uploadFileElement = document.querySelector('#upload-file');
+  var imagePreview = document.querySelector('.img-upload__preview img');
+  var effectsPreviews = document.querySelectorAll('.effects__preview');
+
+  var changePreviewImages = function (photoSrc) {
+    imagePreview.src = photoSrc;
+
+    effectsPreviews.forEach(function (element) {
+      element.style.backgroundImage = 'url(' + photoSrc + ')';
+    });
+  };
+
+  var loadUserFile = function () {
+    var file = uploadFileElement.files[0];
+    var fileName = file.name.toLowerCase();
+
+    var matches = FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+
+    if (matches) {
+      var reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        changePreviewImages(reader.result);
+      });
+
+      reader.readAsDataURL(file);
+    } else {
+      window.showErrorMessage('неверный формат файла');
+    }
+  };
+
+  window.loadUserFile = loadUserFile;
+})();
