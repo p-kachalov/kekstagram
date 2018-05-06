@@ -23,17 +23,19 @@
       return fileName.endsWith(it);
     });
 
-    if (matches) {
-      var reader = new FileReader();
-
-      reader.addEventListener('load', function () {
-        changePreviewImages(reader.result);
-      });
-
-      reader.readAsDataURL(file);
-    } else {
+    if (!matches) {
       window.showErrorMessage('неверный формат файла');
+      return false;
     }
+
+    var reader = new FileReader();
+
+    reader.addEventListener('load', function () {
+      changePreviewImages(reader.result);
+    });
+
+    reader.readAsDataURL(file);
+    return true;
   };
 
   window.loadUserFile = loadUserFile;

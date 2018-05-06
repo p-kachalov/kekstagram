@@ -8,7 +8,10 @@
   var imageUploadForm = document.querySelector('.img-upload__form');
 
   var showImageUploadElement = function () {
-    window.loadUserFile();
+    if (!window.loadUserFile()) {
+      return;
+    }
+
     imageUploadElement.classList.remove('hidden');
     document.addEventListener('keydown', onDocumentEscKeydown);
 
