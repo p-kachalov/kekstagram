@@ -4,12 +4,13 @@
 
   var renderPicturesSet = function (data) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < data.length; i++) {
-      var pictureElement = window.picture.renderPictureElement(data[i], function (photo) {
+
+    data.forEach(function (element) {
+      var pictureElement = window.picture.renderPictureElement(element, function (photo) {
         window.preview.showBigPictureElement(photo);
       });
       fragment.appendChild(pictureElement);
-    }
+    });
     return fragment;
   };
 

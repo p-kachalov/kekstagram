@@ -23,23 +23,28 @@
       return 'нельзя указать больше пяти хэш-тегов';
     }
 
-    for (var i = 0; i < tags.length; i++) {
-      var tag = tags[i];
+    var errorMessage;
+    var isValid = tags.every(function (tag, index) {
       if (tag[0] !== '#') {
-        return 'хэш-тег начинается с символа # (решётка)';
+        errorMessage = 'хэш-тег начинается с символа # (решётка)';
+        return false;
       }
       if (tag.length < 2) {
-        return 'хеш-тег не может состоять только из одной решётки';
+        errorMessage = 'хеш-тег не может состоять только из одной решётки';
+        return false;
       }
       if (tag.length > 20) {
-        return 'максимальная длина одного хэш-тега 20 символов';
+        errorMessage = 'максимальная длина одного хэш-тега 20 символов';
+        return false;
       }
-      if (tags.includes(tag, i + 1)) {
-        return 'один и тот же хэш-тег не может быть использован дважды';
+      if (tags.includes(tag, index + 1)) {
+        errorMessage = 'один и тот же хэш-тег не может быть использован дважды';
+        return false;
       }
-    }
+      return true;
+    });
 
-    return null;
+    return isValid ? null : errorMessage;
   };
 
   var onHashtagsInput = function () {

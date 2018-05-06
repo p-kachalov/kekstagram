@@ -33,7 +33,7 @@
     var request = makeRequest(onLoad, onError);
     request.responseType = RESPONSE_TYPE;
     request.open('GET', GET_ADDRESS);
-    request.send(postData);
+    request.send();
   };
 
   var postData = function (formData, onLoad, onError) {

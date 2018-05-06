@@ -73,9 +73,9 @@
     applyEffect();
   };
 
-  for (var i = 0; i < effectControls.length; i++) {
-    effectControls[i].addEventListener('change', onEffectControlChange);
-  }
+  effectControls.forEach(function (element) {
+    element.addEventListener('change', onEffectControlChange);
+  });
 
   var slider = window.slider.makeSlider(
       {
