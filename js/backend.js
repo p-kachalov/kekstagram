@@ -5,13 +5,16 @@
   var POST_ADDRESS = 'https://js.dump.academy/kekstagram';
   var TIMEOUT = 10000;
   var RESPONSE_TYPE = 'json';
+  var ResponseCode = {
+    OK: 200
+  };
 
   var makeRequest = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.timeout = TIMEOUT;
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === ResponseCode.OK) {
         onLoad(xhr.response);
       } else {
         onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
