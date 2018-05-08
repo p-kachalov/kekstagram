@@ -57,7 +57,5 @@
     });
   };
 
-  window.sorts = {
-    showSorts: showSorts
-  };
+  window.showSorts = showSorts;
 })();

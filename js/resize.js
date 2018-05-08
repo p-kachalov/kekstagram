@@ -38,7 +38,7 @@
     increaseResizeControlValue();
   };
 
-  var setDefaultSize = function () {
+  var setDefault = function () {
     resizeControlValue.value = RESIZE_VALUE_DEFAULT + '%';
     imagePreviewElement.style.transform = null;
   };
@@ -48,7 +48,7 @@
   resizeControlPlus.addEventListener('click', onResizeControlPlusClick);
 
   window.resize = {
-    setDefaultSize: setDefaultSize
+    setDefault: setDefault
   };
 
 })();

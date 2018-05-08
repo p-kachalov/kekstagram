@@ -77,7 +77,7 @@
     element.addEventListener('change', onEffectControlChange);
   });
 
-  var slider = window.slider.makeSlider(
+  var slider = window.makeSlider(
       {
         line: scaleLineElement,
         level: scaleLevelElement,
@@ -89,8 +89,7 @@
       });
 
   window.effects = {
-    setOrigin: setOrigin,
-    applyEffect: applyEffect
+    setOrigin: setOrigin
   };
 
 })();

@@ -71,7 +71,5 @@
     return slider;
   };
 
-  window.slider = {
-    makeSlider: makeSlider
-  };
+  window.makeSlider = makeSlider;
 })();

@@ -6,7 +6,7 @@
     var fragment = document.createDocumentFragment();
 
     data.forEach(function (element) {
-      var pictureElement = window.picture.renderPictureElement(element, function (photo) {
+      var pictureElement = window.picture.renderElement(element, function (photo) {
         window.preview.showBigPictureElement(photo);
       });
       fragment.appendChild(pictureElement);
@@ -27,7 +27,7 @@
 
   var onLoad = function (data) {
     updatePictures(data);
-    window.sorts.showSorts(data, updatePictures);
+    window.showSorts(data, updatePictures);
   };
 
   var onError = function (err) {

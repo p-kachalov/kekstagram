@@ -15,7 +15,7 @@
     imageUploadElement.classList.remove('hidden');
     document.addEventListener('keydown', onDocumentEscKeydown);
 
-    window.resize.setDefaultSize();
+    window.resize.setDefault();
     window.effects.setOrigin();
   };
 
