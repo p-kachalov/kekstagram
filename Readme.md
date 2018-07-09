@@ -1,7 +1,7 @@
 # «Кекстаграм»
-[![Build Status](https://travis-ci.org/p-kachalov/235268-kekstagram.svg?branch=master)](https://travis-ci.org/p-kachalov/235268-mishka)
+[![Build Status](https://travis-ci.org/p-kachalov/kekstagram.svg?branch=master)](https://travis-ci.org/p-kachalov/kekstagram)
 
-[Просмотр](https://p-kachalov.github.io/235268-kekstagram/)
+[Просмотр](https://p-kachalov.github.io/kekstagram/)
 
 ---
 
